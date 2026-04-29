@@ -6,11 +6,10 @@ import { ListaSuspensa } from "../ListaSuspensa";
 import { TituloFormulario } from "../TituloFormulario";
 import './formulario-de-evento.estilos.css';
 
-
-export function FormularioDeEvento() {
+export function FormularioDeEvento({ temas }) {
 
   return (
-    <form className="form-evento">
+    <form className="form-evento" >
       <TituloFormulario >
         Preencha para criar um evento:
       </TituloFormulario >
@@ -27,6 +26,17 @@ export function FormularioDeEvento() {
           />
         </CampoDeFormulario>
         <CampoDeFormulario>
+          <Label htmlFor="capa">
+            Qual é o endereço da imagem de capa?
+          </Label>
+          <CampoDeEntrada
+            type="text"
+            id="capa"
+            placeholder='http://...'
+            name="capa"
+          />
+        </CampoDeFormulario>
+        <CampoDeFormulario>
           <Label htmlFor="dataEvento">
             Data do evento
           </Label>
@@ -36,15 +46,15 @@ export function FormularioDeEvento() {
             name="dataEvento"
           />
         </CampoDeFormulario>
-                <CampoDeFormulario>
-          <Label htmlFor="dataEvento">
-            Data do evento
+        <CampoDeFormulario>
+          <Label htmlFor="tema">
+            Tema do evento
           </Label>
-          <ListaSuspensa />
+          <ListaSuspensa id="tema" name="tema" itens={temas} />
         </CampoDeFormulario>
       </div>
       <div className='acoes'>
-        <Botao className='botao'> 
+        <Botao className='botao'>
           Criar evento
         </Botao>
       </div>

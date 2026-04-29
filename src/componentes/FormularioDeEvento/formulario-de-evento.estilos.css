@@ -11,3 +11,14 @@
   flex-direction: column;
   gap: 16px;
 }
+/* Estilizar as options do select */
+.lista-suspensa-form option {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Estilizar o placeholder das options desabilitadas */
+.lista-suspensa-form option:disabled {
+  color: #999999;
+  background-color: #f5f5f5;
+}
