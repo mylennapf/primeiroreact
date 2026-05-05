@@ -7,21 +7,34 @@ import { TituloFormulario } from "../TituloFormulario";
 import './formulario-de-evento.estilos.css';
 
 export function FormularioDeEvento({ temas, aoSubmeter }) {
-  function aoFomrSubmetido(formData) {
-    console.log('Opa, tá na hora de criar um novo evento', formData)
-    const evento = {
+  
+  // CORRIGIDO: nome da função e parâmetro
+  function aoFormSubmetido(evento) {
+    evento.preventDefault(); // IMPEDE O RECARREGAMENTO DA PÁGINA
+    
+    console.log('Opa, tá na hora de criar um novo evento');
+    
+    // Pega os dados do formulário
+    const formData = new FormData(evento.target);
+    
+    const novoEvento = {
       titulo: formData.get('nomeEvento'),
       capa: formData.get('capa'),
       data: new Date(formData.get('dataEvento')),
       tema: temas.find(function (item) {
-        return item.id === formData.get('tema');
+        return item.id == formData.get('tema'); // Usa == ao invés de === para comparar número com string
       })
     }
-    aoSubmeter(evento)
+    
+    console.log("Novo evento criado:", novoEvento);
+    aoSubmeter(novoEvento);
+    
+    // Opcional: limpa o formulário
+    evento.target.reset();
   }
 
   return (
-    <form className="form-evento" action={aoFomrSubmetido} >
+    <form className="form-evento" onSubmit={aoFormSubmetido} > {/* MUDOU de action para onSubmit */}
       <TituloFormulario >
         Preencha para criar um evento:
       </TituloFormulario >
@@ -35,6 +48,7 @@ export function FormularioDeEvento({ temas, aoSubmeter }) {
             id="nomeEvento"
             placeholder='Summer dev hits'
             name="nomeEvento"
+            required
           />
         </CampoDeFormulario>
         <CampoDeFormulario>
@@ -46,6 +60,7 @@ export function FormularioDeEvento({ temas, aoSubmeter }) {
             id="capa"
             placeholder='http://...'
             name="capa"
+            required
           />
         </CampoDeFormulario>
         <CampoDeFormulario>
@@ -56,17 +71,23 @@ export function FormularioDeEvento({ temas, aoSubmeter }) {
             type="date"
             id="dataEvento"
             name="dataEvento"
+            required
           />
         </CampoDeFormulario>
         <CampoDeFormulario>
           <Label htmlFor="tema">
             Tema do evento
           </Label>
-          <ListaSuspensa id="tema" name="tema" itens={temas} />
+          <ListaSuspensa 
+            id="tema" 
+            name="tema" 
+            itens={temas} 
+            required
+          />
         </CampoDeFormulario>
       </div>
       <div className='acoes'>
-        <Botao className='botao'>
+        <Botao className='botao' type="submit">
           Criar evento
         </Botao>
       </div>

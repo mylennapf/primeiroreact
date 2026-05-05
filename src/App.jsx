@@ -34,11 +34,16 @@ function App() {
       nome: 'cloud'
     }
   ]
-  function adicionarEvento(evento) {
-    /*     eventos.push(evento)
-        console.log("eventos =>", eventos) */
-    setEventos([...eventos, evento])
-  }
+function adicionarEvento(evento) {
+    // Verifica se o evento tem tema e id
+    if (!evento.tema || !evento.tema.id) {
+        console.error("Evento sem tema válido:", evento);
+        return;
+    }
+    
+    console.log("Adicionando evento:", evento);
+    setEventos([...eventos, evento]);
+}
   const [eventos, setEventos] = useState([
     {
       capa: 'https://raw.githubusercontent.com/viniciosneves/tecboard-assets/refs/heads/main/imagem_1.png',
